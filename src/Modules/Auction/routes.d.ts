@@ -1,1 +1,4 @@
-export const routes: Record<string, any>;
+import { AuctionRoutes } from "./constants";
+import { ModuleRoute } from "../../types";
+
+export const routes: Record<AuctionRoutes, ModuleRoute>;

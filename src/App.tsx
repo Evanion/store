@@ -1,19 +1,13 @@
 import * as React from "react";
-import { TabNavigator } from "./Components/TabNavigator";
-
-import { ProfileRoutes, routes as profileRoutes } from "./Modules/Profile";
-import { AuctionRoutes, routes as productRoutes } from "./Modules/Auction";
-import { Providers } from "./Utils/Providers";
-
-const tabs = [
-  productRoutes[AuctionRoutes.CATEGORY],
-  profileRoutes[ProfileRoutes.HOME],
-];
+import { Router } from "./Components/Router";
+import { routes } from "./routes";
+import { Providers } from "./Components/Providers";
+import { providers } from "./providers";
 
 export const App: React.FC = () => {
   return (
-    <Providers>
-      <TabNavigator tabs={tabs} />
+    <Providers providers={providers}>
+      <Router routes={routes} />
     </Providers>
   );
 };

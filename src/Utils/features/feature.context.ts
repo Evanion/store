@@ -1,5 +1,6 @@
 import { createContext } from "react";
-import { initialState as state, ActionProps } from "./feature.store";
+import { ActionProps } from "./features.types";
+import {features, featureConfig} from '../../features'
 
 const dispatch: React.Dispatch<ActionProps> = () => {};
-export const FeatureContext = createContext({ state, dispatch });
+export const FeatureContext = createContext({ state:{features, config:featureConfig}, dispatch });

@@ -12,10 +12,10 @@ import { BottomTabNavigationEventMap } from "@react-navigation/bottom-tabs/lib/t
 
 const Tab = createBottomTabNavigator();
 
-export const TabNavigator: React.FC<Props> = ({ tabs }) => {
+export const TabNavigator: React.FC<Props> = ({ routes }) => {
   return (
     <Tab.Navigator>
-      {tabs.map((tab, index) => (
+      {routes.map((tab, index) => (
         <Tab.Screen key={index} {...tab} />
       ))}
     </Tab.Navigator>
@@ -23,7 +23,7 @@ export const TabNavigator: React.FC<Props> = ({ tabs }) => {
 };
 
 interface Props {
-  tabs: RouteConfig<
+  routes: RouteConfig<
     ParamListBase,
     string,
     TabNavigationState<ParamListBase>,

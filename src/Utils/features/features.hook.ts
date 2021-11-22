@@ -1,15 +1,30 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useReducer } from "react";
+import { Feature } from "../../features";
 import { FeatureContext } from "./feature.context";
-import { FeatureState } from "./feature.store";
-import { Feature } from "./features.types";
+import { reducer } from "./feature.store";
+import { FullFeatureState } from "./features.types";
+import { getPermissive, getRestrictive } from "./features.utils";
+
+export const useFeatureProvider = (fullState: FullFeatureState) => {
+  const [state, dispatch] = useReducer(reducer, fullState);
+  const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
+  return contextValue;
+};
 
 export const useFeature = (feature: Feature) => {
   const { state } = useContext(FeatureContext);
 
-  const dependencies = useMemo(() => getDependencies(state), [state]);
+  const dependencies = useMemo(
+    () =>
+      state.config.permissive
+        ? getPermissive(state.features)
+        : getRestrictive(state.features),
+    [state]
+  );
 
   return {
-    ...state,
+    ...state.features,
     ...dependencies,
   }[feature];
 };
@@ -17,26 +32,18 @@ export const useFeature = (feature: Feature) => {
 export const useFeatureAdvanced = () => {
   const { state, dispatch } = useContext(FeatureContext);
 
-  const dependencies = useMemo(() => getDependencies(state), [state]);
+  const dependencies = useMemo(
+    () =>
+      state.config.permissive
+        ? getPermissive(state.features)
+        : getRestrictive(state.features),
+    [state]
+  );
   return {
     state: {
-      ...state,
+      ...state.features,
       ...dependencies,
     },
     dispatch,
   };
 };
-
-/**
- * @description Resolves and activates any features that are depended on by other features
- */
-function getDependencies(state: FeatureState) {
-  return Object.values(state)
-    .filter((config) => config.active && config.dependencies.length)
-    .map((config) => config.dependencies)
-    .flat(1)
-    .reduce((prev, current) => {
-      prev[current] = { ...state[current], active: true, isDependency: true };
-      return prev;
-    }, {} as FeatureState);
-}

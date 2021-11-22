@@ -1,8 +1,5 @@
 import * as React from "react";
-
-export type Components =
-  | React.ComponentType
-  | [React.ComponentType, { [key: string]: any }];
+import { Components } from "./Compose.types";
 
 interface Props {
   components: Components[];

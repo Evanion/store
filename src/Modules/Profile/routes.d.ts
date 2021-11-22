@@ -1,1 +1,4 @@
-export const routes: Record<string, any>;
+import { ProfileRoutes } from "./constants";
+import { ModuleRoute } from "../../types";
+
+export const routes: Record<ProfileRoutes, ModuleRoute>;

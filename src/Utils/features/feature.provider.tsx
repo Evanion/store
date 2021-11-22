@@ -1,12 +1,15 @@
 import * as React from "react";
+import { useFeatureProvider } from ".";
 import { FeatureContext } from "./feature.context";
-import { initialState, reducer } from "./feature.store";
+import { FeatureConfig, FeatureState } from "./features.types";
 
-export const FeatureProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const contextValue = React.useMemo(
-    () => ({ state, dispatch }),
-    [state, dispatch]
-  );
+interface Props {
+  features: FeatureState
+  config: FeatureConfig
+  children: React.ReactNode
+}
+
+export const FeatureProvider: React.FC<Props> = ({ features,config, children }) => {
+  const contextValue = useFeatureProvider({features, config})
   return <FeatureContext.Provider value={contextValue} children={children} />;
 };
