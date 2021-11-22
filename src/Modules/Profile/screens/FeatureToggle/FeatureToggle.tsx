@@ -28,9 +28,8 @@ export const FeatureToggle: React.FC = () => {
           {stateArray.map(([key, value]) => (
             <Stack key={key} direction="row" justifyContent="space-between">
               <Stack direction="column">
-                <Text>
-                  {key.charAt(0).toLocaleUpperCase()}
-                  {key.slice(1).toLocaleLowerCase()}
+                <Text style={{textTransform:'capitalize'}}>
+                  {key}
                 </Text>
                 <Text sub={true} color="grey">
                   [{value.dependencies.join(", ")}]
