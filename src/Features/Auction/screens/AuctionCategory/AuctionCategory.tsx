@@ -1,23 +1,17 @@
 import * as React from "react";
-import { Button, Text } from "react-native";
+import { Text } from "react-native";
 import { Container } from "native-base";
 import {
-  useFeatureAdvanced,
-  FeatureAction,
+  useFeature,
   Feature,
 } from "../../../../Utils/features";
 
 export const AuctionCategory: React.FC = () => {
-  const { state, dispatch } = useFeatureAdvanced();
-  const onPress = (feature: Feature) => () =>
-    state[feature].active
-      ? dispatch({ action: FeatureAction.Deactivate, feature })
-      : dispatch({ action: FeatureAction.Activate, feature });
+  const { active } = useFeature(Feature.AuctionView);
   return (
     <Container>
       <Text>Auction Category</Text>
-      <Text>Profile: {state[Feature.Profile]?.active ? "true" : "false"}</Text>
-      <Button onPress={onPress(Feature.Profile)} title="Toggle" />
+      <Text>Profile: {active ? "true" : "false"}</Text>
     </Container>
   );
 };
