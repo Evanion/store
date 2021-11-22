@@ -1,8 +1,8 @@
 import * as React from "react";
 import { TabNavigator } from "./Components/TabNavigator";
 
-import { ProfileRoutes, routes as profileRoutes } from "./Features/Profile";
-import { AuctionRoutes, routes as productRoutes } from "./Features/Auction";
+import { ProfileRoutes, routes as profileRoutes } from "./Modules/Profile";
+import { AuctionRoutes, routes as productRoutes } from "./Modules/Auction";
 import { Providers } from "./Utils/Providers";
 
 const tabs = [
